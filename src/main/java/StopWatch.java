@@ -8,13 +8,18 @@ public final class StopWatch {
         startNanos = System.nanoTime();
     }
 
-    public void stop() {
+    public void restart() {
+        startNanos = System.nanoTime();
+    }
+
+    public long stop() {
         stopNanos = System.nanoTime();
         ellapsedNanos = stopNanos - startNanos;
+        return ellapsedNanos;
     }
 
     @Override
     public String toString() {
-        return "ellapsed time: " + ellapsedNanos / 1000 + " ms";
+        return ellapsedNanos / 1000 + " ms";
     }
 }
