@@ -1,3 +1,5 @@
+import java.util.Random;
+
 import static java.lang.System.out;
 import static java.util.Arrays.sort;
 
@@ -11,28 +13,30 @@ public final class Exercise_1_4_16_ClosestPairs {
 
     public static void main(String[] args) {
         // Double ratio experiment
-        double[] input = worstInput(2);
+        double[] input = randomInput(2);
         final StopWatch stopWatch = new StopWatch();
         closestPairs(input);
         long prev = stopWatch.stop();
         for (int n = 2; true; n += n) {
-            input = worstInput(n);
+            input = randomInput(n);
             stopWatch.restart();
             closestPairs(input);
             long time = stopWatch.stop();
             out.println("array size: " + n + ", time: " + stopWatch + ", time ratio: " + (time * 1.0) / prev);
             prev = time;
+            input = null;
         }
     }
 
-    static double[] worstInput(final int size) {
+    static double[] randomInput(final int size) {
+        final Random random = new Random(1234);
         final double[] input = new double[size];
         for (int i = 0; i < size; i++) {
-            input[i] = (double) i + 1;
+            input[i] = random.nextDouble();
         }
-        input[size - 2] = input[size - 1] - 0.1;
         return input;
     }
+
 
     static double[] closestPairs(final double[] numbers) {
         sort(numbers);
